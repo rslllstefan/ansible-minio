@@ -12,3 +12,5 @@
       - "/srv/data2"
       - "/srv/data3"
       - "/srv/data4"
+    minio_server_args:
+      - "/srv/data{1...4}"

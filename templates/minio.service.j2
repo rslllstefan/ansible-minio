@@ -1,7 +1,7 @@
 {{ ansible_managed | comment }}
 
 [Unit]
-Description=Minio
+Description=MinIO
 Documentation=https://docs.minio.io
 Wants=network-online.target
 After=network-online.target
@@ -20,9 +20,9 @@ Group={{ minio_group }}
 PermissionsStartOnly=true
 
 EnvironmentFile={{ minio_server_envfile }}
-ExecStartPre=/bin/bash -c "[ -n \"${MINIO_VOLUMES}\" ] || echo \"Variable MINIO_VOLUMES not set in {{ minio_server_envfile }}\""
+ExecStartPre=/bin/bash -c "[ -n \"${MINIO_ARGS}\" ] || echo \"Variable MINIO_ARGS not set in {{ minio_server_envfile }}\""
 
-ExecStart={{ minio_server_bin }} server $MINIO_OPTS $MINIO_VOLUMES
+ExecStart={{ minio_server_bin }} server $MINIO_OPTS
 
 # Let systemd always restart this service, in limits defined by StartLimitIntervalSec and StartLimitBurst.
 Restart=always
@@ -36,7 +36,7 @@ LimitNOFILE=65536
 # Disable timeout logic and wait until process is stopped
 TimeoutStopSec=0
 
-# SIGTERM signal is used to stop Minio
+# SIGTERM signal is used to stop MinIO
 KillSignal=SIGTERM
 
 SendSIGKILL=no
