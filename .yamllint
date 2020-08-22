@@ -2,9 +2,8 @@ extends: default
 
 ignore: |
   .tox/
-  .travis/
-  .travis.yml
   meta/
+  .github/
 
 rules:
   # Disable line-length and truthy values reporting
