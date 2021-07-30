@@ -35,9 +35,10 @@ minio_server_env_extra: |
 # Additional MinIO server CLI options
 minio_server_opts: ""
 
-# MinIO access and secret keys
-minio_access_key: "minio"
-minio_secret_key: "minio123"
+# MinIO root username password
+# Reading existing values from deprecated access and secret key varibles
+minio_root_username: "{{ minio_access_key | default('minio') }}"
+minio_root_password: "{{ minio_secret_key | default('minio123') }}"
 
 # Switches to enable/disable the MinIO server and/or MinIO client installation.
 minio_install_server: true
