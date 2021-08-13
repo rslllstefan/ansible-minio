@@ -1,6 +1,8 @@
 ---
 - name: Create
   hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python   
   connection: local
   gather_facts: false
   no_log: "{{ not lookup('env', 'MOLECULE_DEBUG') | bool }}"
