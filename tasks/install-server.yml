@@ -17,6 +17,11 @@
   set_fact:
     _minio_server_checksum: "{{ lookup('url', _minio_server_download_url + '.sha256sum').split(' ')[0] }}"
 
+- name: "Append the MinIO console addr to minio_server_opts variable"
+  set_fact:
+    minio_server_opts: "--console-address {{ minio_console_addr }} {{ minio_server_opts }}"
+  when: minio_console_addr | length > 1
+
 - name: Create MinIO group
   group:
     name: "{{ minio_group }}"
