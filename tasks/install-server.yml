@@ -13,6 +13,11 @@
     _minio_server_download_url: "{{ _minio_server_download_base_url }}/archive/minio.{{ minio_server_release }}"
   when: minio_server_release | length > 0
 
+- name: "Append the MinIO console addr to minio_server_opts variable"
+  set_fact:
+    minio_server_opts: "--console-address {{ minio_console_addr }} {{ minio_server_opts }}"
+  when: minio_console_addr | length > 1
+
 - name: Create MinIO group
   group:
     name: "{{ minio_group }}"

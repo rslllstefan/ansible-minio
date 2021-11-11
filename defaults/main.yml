@@ -19,6 +19,11 @@ minio_server_envfile: /etc/default/minio
 # MinIO server listen address
 minio_server_addr: ":9091"
 
+# MinIO console addr:
+minio_console_ip: ""
+minio_console_port: ""
+minio_console_addr: "{{ minio_console_ip }}:{{ minio_console_port }}"
+
 # MinIO server data directories
 minio_server_datadirs:
   - /var/lib/minio
