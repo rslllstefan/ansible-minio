@@ -17,6 +17,11 @@
   set_fact:
     _minio_server_checksum: "{{ lookup('url', _minio_server_download_url + '.sha256sum').split(' ')[0] }}"
 
+- name: "Append the MinIO config directory var to minio_server_opts"
+  set_fact:
+    minio_server_opts: "--config-dir {{ minio_config_dir}} {{ minio_server_opts }}"
+  when: minio_config_dir | length > 0
+
 - name: Create MinIO group
   group:
     name: "{{ minio_group }}"
@@ -82,6 +87,14 @@
     mode: 0750
   when: ansible_service_mgr != "systemd"
   notify: restart minio
+
+- name: Create the MinIO config dir
+  file:
+    path: "{{ minio_config_dir }}"
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    state: directory
+  when: minio_config_dir is defined
 
 - name: Enable and start the MinIO service
   service:

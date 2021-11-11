@@ -43,6 +43,12 @@ Name and group of the user running the minio server.
 minio_server_envfile: /etc/default/minio
 ```
 
+You can specify the location of your existing config using --config-dir (default: ${HOME}/.minio)
+
+```yaml
+minio_config_dir: "/etc/minio"
+```
+
 Path to the file containing the minio server configuration ENV variables.
 
 ```yaml
