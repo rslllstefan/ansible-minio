@@ -22,6 +22,11 @@ minio_server_port: "9091"
 # MinIO server listen address
 minio_server_addr: "{{ minio_server_ip }}:{{ minio_server_port}}"
 
+# MinIO console addr:
+minio_console_ip: ""
+minio_console_port: ""
+minio_console_addr: "{{ minio_console_ip }}:{{ minio_console_port }}"
+
 # MinIO server data directories
 minio_server_datadirs:
   - /var/lib/minio
