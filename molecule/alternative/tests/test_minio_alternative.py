@@ -10,16 +10,16 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 @pytest.fixture()
 def AnsibleDefaults():
-    with open('../../defaults/main.yml', 'r') as stream:
+    with open('defaults/main.yml', 'r') as stream:
         return yaml.load(stream)
 
 
 def test_minio_server_env_file(host, AnsibleDefaults):
 
-    f = host.file('/opt/minio')
+    f = host.file('/etc/default/minio')
     assert f.is_file
     assert f.exists
-    assert f.user == 'root'
+    assert f.user == AnsibleDefaults['minio_user']
     assert f.group == AnsibleDefaults['minio_group']
     assert oct(f.mode) == '0o640'
 

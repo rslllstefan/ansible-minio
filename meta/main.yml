@@ -1,5 +1,7 @@
 galaxy_info:
   author: Andrea Tosatto
+  role_name: myname
+  namespace: mynamespace
   description: Install and configure the MinIO S3 compatible object storage server on RHEL/CentOS and Debian/Ubuntu
   min_ansible_version: 2.9
   license: MIT

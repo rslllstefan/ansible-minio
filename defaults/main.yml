@@ -4,10 +4,11 @@
 minio_server_bin: /usr/local/bin/minio
 minio_client_bin: /usr/local/bin/mc
 
-# MinIO release to install. default if latest
-minio_server_release: "RELEASE.2020-08-18T19-41-00Z"
+# MinIO release to install.
+minio_server_release: "RELEASE.2021-11-24T23-19-33Z"
 
-minio_client_release: "RELEASE.2020-08-20T00-23-01Z"
+# MinIO client release to install.
+minio_client_release: "RELEASE.2021-11-16T20-37-36Z"
 
 # Runtime user and group for the MinIO server service
 minio_user: minio
@@ -17,18 +18,18 @@ minio_group: minio
 minio_server_envfile: /etc/default/minio
 
 # Directory to store minio config. Will default to minio_user/.minio if not defined
-minio_config_dir: ""
+minio_config_dir: "/etc/minio"
 
 # Minio server ip/fqdn and port. This makes up the server_addr below
 minio_server_ip: ""
-minio_server_port: "9091"
+minio_server_port: "9000"
 
 # MinIO server listen address
 minio_server_addr: "{{ minio_server_ip }}:{{ minio_server_port}}"
 
 # MinIO console addr:
 minio_console_ip: ""
-minio_console_port: ""
+minio_console_port: "9001"
 minio_console_addr: "{{ minio_console_ip }}:{{ minio_console_port }}"
 
 # MinIO server data directories
@@ -42,15 +43,15 @@ minio_server_args:
 
 # Additional environment variables to be set in minio server environment
 minio_server_env_extra: |
-  MINIO_REGION_NAME=us-east-1
+  MINIO_REGION_NAME=""
 
 # Additional MinIO server CLI options
 minio_server_opts: ""
 
 # MinIO root username password
 # Reading existing values from deprecated access and secret key varibles
-minio_root_username: "{{ minio_access_key | default('minio') }}"
-minio_root_password: "{{ minio_secret_key | default('minio123') }}"
+minio_root_username: "{{ minio_access_key | default('minioadmin') }}"
+minio_root_password: "{{ minio_secret_key | default('minioadmin') }}"
 
 # Switches to enable/disable the MinIO server and/or MinIO client installation.
 minio_install_server: true

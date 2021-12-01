@@ -15,8 +15,8 @@ platforms:
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: minio-ubuntu-20.04
-    image: paulfantom/ubuntu-molecule:20.04
+  - name: minio-ubuntu-18.04
+    image: paulfantom/ubuntu-molecule:18.04
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro

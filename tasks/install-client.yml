@@ -18,8 +18,8 @@
   get_url:
     url: "{{ _minio_client_download_url }}"
     dest: "{{ minio_client_bin }}"
-    owner: "root"
-    group: "root"
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
     mode: 0755
     checksum: "sha256:{{ _minio_client_download_url }}.sha256sum"
   register: _download_client
