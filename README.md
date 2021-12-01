@@ -103,11 +103,11 @@ minio_server_opts: ""
 ```
 
 
-MinIO root access and secret keys.
+MinIO root user and password.
 
 ```yaml
-minio_access_key: ""
-minio_secret_key: ""
+minio_root_username: ""
+minio_root_password: ""
 ```
 
 Switches to disable minio server and/or minio client installation.
