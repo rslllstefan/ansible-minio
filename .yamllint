@@ -2,7 +2,7 @@
 extends: default
 
 ignore: |
-  .tox/
+  ansible/
   meta/
   .github/
 

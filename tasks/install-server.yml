@@ -20,7 +20,7 @@
 
 - name: "Append the MinIO config directory var to minio_server_opts"
   set_fact:
-    minio_server_opts: "--config-dir {{ minio_config_dir}} {{ minio_server_opts }}"
+    minio_server_opts: "--config-dir {{ minio_config_dir }} {{ minio_server_opts }}"
   when: minio_config_dir | length > 0
 
 - name: Create MinIO group
@@ -41,7 +41,7 @@
     state: directory
     owner: "{{ minio_user }}"
     group: "{{ minio_group }}"
-    mode: 0750
+    mode: 0755
   when: minio_server_make_datadirs
   with_items: "{{ minio_server_datadirs }}"
 
@@ -74,6 +74,7 @@
     dest: "/etc/systemd/system/minio.service"
     owner: "{{ minio_user }}"
     group: "{{ minio_group }}"
+    mode: 0644
   when: ansible_service_mgr == "systemd"
   notify:
     - reload minio systemd
@@ -95,6 +96,7 @@
     owner: "{{ minio_user }}"
     group: "{{ minio_group }}"
     state: directory
+    mode: 0755
   when: minio_config_dir is defined
 
 - name: Enable and start the MinIO service
@@ -102,3 +104,5 @@
     name: minio
     enabled: true
     state: started
+  become: true
+  notify: Check Minio on '{{ minio_connection_type }}'

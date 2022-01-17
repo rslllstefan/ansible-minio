@@ -1,6 +1,0 @@
-molecule>=3.1.0
-molecule[docker]
-docker
-requests
-ansible-lint>=5.0.4
-testinfra>=1.7.0

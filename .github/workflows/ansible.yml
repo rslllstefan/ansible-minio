@@ -1,4 +1,5 @@
-name: Ansible package
+---
+name: CI
 
 on:
   pull_request:
@@ -9,26 +10,30 @@ on:
     - master
 
 jobs:
-  build:
-    name: Test on python ${{ matrix.python-version }} and ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      max-parallel: 3
-      matrix:
-        python-version: [3.8]
-        os: [ubuntu-latest]
+  lint:
+    runs-on: ubuntu-latest
+    container: ghcr.io/pavelpikta/docker-ansible-ci:2.9
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Lints
+        run: |
+          yamllint . -c .yamllint
+          ansible-lint -c .ansible-lint
+  molecule:
+    needs: lint
+    runs-on: ubuntu-latest
+    container: ghcr.io/pavelpikta/docker-ansible-ci:2.9
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      env:
-        MOLECULE_DEBUG: 1
-      run: |
-        sudo apt install python-is-python3 --yes
-        python -m pip install --upgrade pip setuptools
-        python -m pip install tox ansible
-        tox
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Molecule
+        run: |
+          pip3 install ansible ansible-lint
+          pip3 install molecule[lint,docker]==3.2.3
+
+          molecule test -s default
