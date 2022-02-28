@@ -10,10 +10,10 @@
   service:
     name: minio
     state: restarted
-  notify: Check Minio on '{{ minio_connection_type }}'
+  notify: Check MinIO WebUI
   become: true
 
-- name: Check Minio on '{{ minio_connection_type }}'
+- name: Check MinIO WebUI
   uri:
     url: "{{ minio_connection_type }}://{{ minio_hostname }}:{{ minio_server_port }}/minio/login"
     status_code: 200

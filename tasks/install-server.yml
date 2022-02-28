@@ -105,4 +105,4 @@
     enabled: true
     state: started
   become: true
-  notify: Check Minio on '{{ minio_connection_type }}'
+  notify: Check MinIO WebUI
