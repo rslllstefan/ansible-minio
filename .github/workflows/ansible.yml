@@ -12,28 +12,21 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    container: ghcr.io/pavelpikta/docker-ansible-ci:2.9
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Lints
+      - name: Lint and Molecule
         run: |
+          pip3 install --upgrade pip wheel && \
+          pip3 install --upgrade cryptography cffi && \
+          pip3 install ansible-core==2.13.2 && \
+          pip3 install ansible==6.1.0 ansible-lint==6.3.0 yamllint && \
+          pip3 install molecule molecule-containers molecule-docker molecule-podman molecule-ec2
+
           yamllint . -c .yamllint
-          ansible-lint -c .ansible-lint
-  molecule:
-    needs: lint
-    runs-on: ubuntu-latest
-    container: ghcr.io/pavelpikta/docker-ansible-ci:2.9
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Molecule
-        run: |
-          pip3 install ansible ansible-lint
-          pip3 install molecule[lint,docker]==3.2.3
+          ansible-lint -x fqcn-builtins,var-spacing -c .ansible-lint
 
           molecule test -s default

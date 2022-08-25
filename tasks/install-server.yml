@@ -104,5 +104,4 @@
     name: minio
     enabled: true
     state: started
-  become: true
   notify: Check MinIO WebUI

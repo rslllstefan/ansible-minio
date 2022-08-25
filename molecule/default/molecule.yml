@@ -12,7 +12,7 @@ driver:
 
 platforms:
   - name: test-docker-centos7-minio
-    image: ghcr.io/pavelpikta/docker-systemd/centos7:latest
+    image: quay.io/minio/centos-systemd:7
     privileged: true
     pre_build_image: true
     command: /sbin/init
@@ -28,7 +28,7 @@ platforms:
       - rhel_family
 
   - name: test-docker-ubuntu2004-minio
-    image: ghcr.io/pavelpikta/docker-systemd/ubuntu-20.04:latest
+    image: quay.io/minio/ubuntu-systemd:20.04
     command: /sbin/init
     privileged: true
     pre_build_image: true

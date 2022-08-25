@@ -7,10 +7,10 @@ minio_client_bin: /usr/local/bin/mc
 minio_hostname: "{{ ansible_fqdn }}"
 
 # MinIO release to install.
-minio_server_release: "RELEASE.2022-06-07T00-33-41Z"
+minio_server_release: "RELEASE.2022-08-25T07-17-05Z"
 
 # MinIO client release to install.
-minio_client_release: "RELEASE.2022-05-09T04-08-26Z"
+minio_client_release: "RELEASE.2022-08-23T05-45-20Z"
 
 # Runtime user and group for the MinIO server service
 minio_user: minio
