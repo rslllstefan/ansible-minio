@@ -25,11 +25,11 @@ minio_client_bin: /usr/local/bin/mc
 Installation path of the MinIO server and client binaries.
 
 ```yaml
-minio_server_release: "RELEASE.2020-08-18T19-41-00Z"
-minio_client_release: "RELEASE.2020-08-20T00-23-01Z"
+minio_server_release: "RELEASE.2022-08-25T07-17-05Z"
+minio_client_release: "RELEASE.2022-08-23T05-45-20Z"
 ```
 
-Release to install for both server and client; lastest if the default. Can be 'RELEASE.2020-08-18T19-41-00Z' for instance.
+Release to install for both server and client; lastest if the default. Can be 'RELEASE.2022-07-26T00-53-03Z' for instance.
 
 ```yaml
 minio_user: minio
@@ -127,14 +127,10 @@ None.
   hosts: all
   become: yes
   roles:
-    - { role: atosatto.minio }
+    - { role: minio }
   vars:
     minio_server_datadirs: [ "/minio1" ]
 ```
-
-## Changelog
-
-See [changelog](CHANGELOG.md).
 
 ## License
 

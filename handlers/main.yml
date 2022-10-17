@@ -1,4 +1,5 @@
 ---
+# handlers file for minio
 
 - name: reload minio systemd
   systemd:
@@ -9,3 +10,16 @@
   service:
     name: minio
     state: restarted
+  notify: Check MinIO WebUI
+
+- name: Check MinIO WebUI
+  uri:
+    url: "{{ minio_connection_type }}://{{ minio_hostname }}:{{ minio_server_port }}/minio/login"
+    status_code: 200
+    headers:
+      User-Agent: "Mozilla/5.0"
+    validate_certs: false
+  register: login_page
+  until: login_page.status == 200
+  retries: 10
+  delay: 1

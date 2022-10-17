@@ -20,7 +20,7 @@
 
 - name: "Append the MinIO config directory var to minio_server_opts"
   set_fact:
-    minio_server_opts: "--config-dir {{ minio_config_dir}} {{ minio_server_opts }}"
+    minio_server_opts: "--config-dir {{ minio_config_dir }} {{ minio_server_opts }}"
   when: minio_config_dir | length > 0
 
 - name: Create MinIO group
@@ -41,7 +41,7 @@
     state: directory
     owner: "{{ minio_user }}"
     group: "{{ minio_group }}"
-    mode: 0750
+    mode: 0755
   when: minio_server_make_datadirs
   with_items: "{{ minio_server_datadirs }}"
 
@@ -49,8 +49,8 @@
   get_url:
     url: "{{ _minio_server_download_url }}"
     dest: "{{ minio_server_bin }}"
-    owner: "root"
-    group: "root"
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
     mode: 0755
     checksum: "sha256:{{ _minio_server_download_url }}.sha256sum"
   register: _download_server
@@ -63,7 +63,7 @@
   template:
     src: minio.env.j2
     dest: "{{ minio_server_envfile }}"
-    owner: "root"
+    owner: "{{ minio_user }}"
     group: "{{ minio_group }}"
     mode: 0640
   notify: restart minio
@@ -72,8 +72,9 @@
   template:
     src: minio.service.j2
     dest: "/etc/systemd/system/minio.service"
-    owner: "root"
-    group: "root"
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    mode: 0644
   when: ansible_service_mgr == "systemd"
   notify:
     - reload minio systemd
@@ -83,8 +84,8 @@
   template:
     src: minio.init.j2
     dest: "/etc/init.d/minio"
-    owner: "root"
-    group: "root"
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
     mode: 0750
   when: ansible_service_mgr != "systemd"
   notify: restart minio
@@ -95,10 +96,12 @@
     owner: "{{ minio_user }}"
     group: "{{ minio_group }}"
     state: directory
+    mode: 0755
   when: minio_config_dir is defined
 
 - name: Enable and start the MinIO service
   service:
     name: minio
-    state: started
     enabled: true
+    state: started
+  notify: Check MinIO WebUI

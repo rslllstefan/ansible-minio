@@ -1,28 +1,21 @@
 galaxy_info:
-  author: Andrea Tosatto
+  role_name: minio
+  author: minio
   description: Install and configure the MinIO S3 compatible object storage server on RHEL/CentOS and Debian/Ubuntu
-  min_ansible_version: 2.9
   license: MIT
-  issue_tracker_url: https://github.com/minio/ansible-minio/issues
-
+  min_ansible_version: "2.9"
   platforms:
-    - name: EL
+    - name: "Ubuntu"
       versions:
-        - 7
-    - name: Fedora
+        - "xenial"
+        - "bionic"
+    - name: "Debian"
       versions:
-        - 27
-    - name: Ubuntu
+        - "stretch"
+    - name: "EL"
       versions:
-        - trusty
-        - utopic
-        - vivid
-        - wily
-        - xenial
-    - name: Debian
-      versions:
-        - etch
-        - jessie
+        - "7"
+  issue_tracker_url: https://github.com/minio/ansible-minio/issues
 
   galaxy_tags:
     - system

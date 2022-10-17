@@ -1,4 +1,7 @@
 ---
+# vars file for ansible-minio
+minio_connection_type: "{{ minio_enable_ssl | ternary('https', 'http') }}"
+
 go_arch_map:
   i386: '386'
   x86_64: 'amd64'

@@ -1,0 +1,11 @@
+---
+exclude_paths:
+  - molecule/
+  - .github/
+  - ansible/
+  - requirements.yml
+parseable: true
+quiet: false
+verbosity: 1
+
+use_default_rules: true
